@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<form class="login-box" action="/login" method="POST">
+    <h2>facebook</h2>
+
+  <input type="text" name="username" placeholder="اسم المستخدم">
+
+   <input type="password" name="password" placeholder="كلمة المرور">
+
+<button type="submit">تسجيل الدخول</button>
+<a href="#" class="forgot-password">هل نسيت كلمة المرور؟</a>
+<hr>
+
+<button type="button" class="create-account">
+    إنشاء حساب جديد
+</button>
+</form>
+</body>
+</html>
