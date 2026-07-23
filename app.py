@@ -1,21 +1,12 @@
 from flask import Flask, render_template, request
-import sqlite3
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 app = Flask(__name__)
-conn = sqlite3.connect("database.db")
-cursor = conn.cursor()
+cred = credentials.Certificate("firebase-key.json")
+firebase_admin.initialize_app(cred)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    password TEXT
-)
-""")
-
-conn.commit()
-conn.close()
-
+db = firestore.client()
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -24,16 +15,11 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
 
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "INSERT INTO users(username, password) VALUES(?, ?)",
-        (username, password)
-    )
-
-    conn.commit()
-    conn.close()
+    db.collection("users").add({
+        "username": username,
+        "password": password
+    })
 
     return render_template("dashboard.html")
+
 app.run(debug=True)
