@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -21,6 +22,5 @@ def login():
     })
 
     return render_template("dashboard.html")
-
-if "__name__" == "main":
+if __name__ == "main":
     app.run(host="0.0.0.0", port=5000)
