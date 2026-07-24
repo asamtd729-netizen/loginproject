@@ -1,12 +1,11 @@
-
+import os
+import json
 from flask import Flask, render_template, request
 import firebase_admin
 from firebase_admin import credentials, firestore
 
 app = Flask(__name__)
 firebase_key = json.loads(os.environ["FIREBASE_KEY"])
-import os
-import json
 cred = credentials.Certificate(firebase_key)
 firebase_admin.initialize_app(cred)
 
